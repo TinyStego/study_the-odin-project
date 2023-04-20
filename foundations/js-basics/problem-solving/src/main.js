@@ -9,6 +9,9 @@ for (let i = 1; i <= answer; ++i) {
     if (i % 5 === 0) {
         temp += "Buzz"
     } 
+    if (i % 7 === 0) {
+        temp += "Bazz"
+    } 
     if (temp === ""){
         temp += String(i);
     }
