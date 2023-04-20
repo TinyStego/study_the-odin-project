@@ -1,17 +1,20 @@
 const answer = parseInt(prompt("Please enter a positive number you would like to FizzBuzz up to: "));
+const checks = {
+    2: "Fuzz",
+    3: "Fizz",
+    5: "Buzz",
+    7: "Bazz"
+}
 let result = "";
+
 
 for (let i = 1; i <= answer; ++i) {
     let temp = "";
-    if (i % 3 === 0) {
-        temp += "Fizz"
-    } 
-    if (i % 5 === 0) {
-        temp += "Buzz"
-    } 
-    if (i % 7 === 0) {
-        temp += "Bazz"
-    } 
+    for (let key in checks) {
+        if (i % parseInt(key) === 0) {
+            temp += checks[key];
+        } 
+    }
     if (temp === ""){
         temp += String(i);
     }
