@@ -1,13 +1,18 @@
-let answer = parseInt(prompt("Please enter a positive number you would like to FizzBuzz up to: "));
+const answer = parseInt(prompt("Please enter a positive number you would like to FizzBuzz up to: "));
+let result = "";
 
 for (let i = 1; i <= answer; ++i) {
-    if (i % 3 === 0 && i % 5 === 0) {
-        console.log("FizzBuzz");
-    } else if (i % 3 === 0) {
-        console.log("Fizz");
-    } else if (i % 5 === 0) {
-        console.log("Buzz");
-    } else {
-        console.log(i);
+    let temp = "";
+    if (i % 3 === 0) {
+        temp += "Fizz"
+    } 
+    if (i % 5 === 0) {
+        temp += "Buzz"
+    } 
+    if (temp === ""){
+        temp += String(i);
     }
+    result += `${temp}\n`
 }
+
+console.log(result);
