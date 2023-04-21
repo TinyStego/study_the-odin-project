@@ -12,7 +12,7 @@ let guessCount = 1;
 let resetButton;
 
 function getRandomNum(maxGuess) {
-    return Math.floor(Math.random() * maxGuess);
+    return Math.floor(Math.random() * maxGuess) + 1;
 }
 
 function checkGuess() {
