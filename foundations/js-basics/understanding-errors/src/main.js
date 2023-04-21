@@ -1,4 +1,4 @@
-let randomNumber = Math.floor(Math.random()) + 1;
+const MAXGUESS = 100;
 
 const guesses = document.querySelector('.guesses');
 const lastResult = document.querySelector('.lastResult');
@@ -6,8 +6,14 @@ const lowOrHi = document.querySelector('.lowOrHi');
 const guessSubmit = document.querySelector('.guessSubmit');
 const guessField = document.querySelector('.guessField');
 
+let randomNumber = getRandomNum(MAXGUESS)
+
 let guessCount = 1;
 let resetButton;
+
+function getRandomNum(maxGuess) {
+    return Math.floor(Math.random() * maxGuess);
+}
 
 function checkGuess() {
 
@@ -66,5 +72,5 @@ function resetGame() {
 
     lastResult.style.backgroundColor = 'white';
 
-    randomNumber = Math.floor(Math.random()) + 1;
+    randomNumber = getRandomNum(MAXGUESS);
 }
