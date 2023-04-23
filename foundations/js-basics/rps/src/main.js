@@ -24,3 +24,16 @@ function playRound(playerChoice, compChoice) {
 
   return `It's a tie! You chose ${playerChoice} and the computer chose ${compChoice}.`;
 }
+
+function game(){
+  const rounds = 5;
+  for(let i = 0; i < rounds; ++i){
+    let playerChoice = prompt("Choose: Rock, Paper, Scissors");
+    while(!CHOICES.includes(playerChoice.toLowerCase())) {
+      playerChoice = prompt(`${playerChoice} is invalid.\nChoose: Rock, Paper, Scissors`);
+    }
+
+    const compChoice = getRandComputerChoice();
+    console.log(playRound(playerChoice, compChoice));
+  } 
+}
