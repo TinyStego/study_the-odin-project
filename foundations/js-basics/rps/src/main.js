@@ -10,6 +10,14 @@ function getRandComputerChoice() {
   return CHOICES[compChoice];
 }
 
+function getPlayerChoice() {
+  let playerChoice = prompt("Choose: Rock, Paper, Scissors");
+  while (!CHOICES.includes(playerChoice.toLowerCase())) {
+    playerChoice = prompt(`${playerChoice} is invalid.\nChoose: Rock, Paper, Scissors`);
+  }
+  return playerChoice;
+}
+
 function playRound(playerChoice, compChoice) {
   if (playerChoice.toLowerCase() === compChoice) {
     return `It's a tie! You chose ${playerChoice} and the computer chose ${compChoice}.`;
@@ -27,19 +35,33 @@ function playRound(playerChoice, compChoice) {
   }
 
 }
+
+function outputResult(result) {
+  console.log(result);
+}
+
+function getGameResult(playerScore, compScore) {
+  if (playerScore > compScore) {
+    return "won";
+  }
+  if (playerScore < compScore) {
+    return "lost";
+  }
+  if (playerScore === compScore) {
+    return "tied";
+  }
+}
+
 // REMINDER:
 //     refactor this function, possibly split into multiple functions
-function game(){
+function game() {
   const rounds = 5;
 
   let playerScore = 0;
   let compScore = 0;
 
   for (let i = 0; i < rounds; ++i){
-    let playerChoice = prompt("Choose: Rock, Paper, Scissors");
-    while (!CHOICES.includes(playerChoice.toLowerCase())) {
-      playerChoice = prompt(`${playerChoice} is invalid.\nChoose: Rock, Paper, Scissors`);
-    }
+    let playerChoice = getPlayerChoice();
     const compChoice = getRandComputerChoice(); // determine this score later so player
                                                 // can't view it in the debugger
     const result = playRound(playerChoice, compChoice);
@@ -49,16 +71,9 @@ function game(){
     if (result.includes("Lose")) {
       ++compScore;
     }
-    console.log(result);
+    outputResult(result);
   } 
 
-  if (playerScore > compScore) {
-    return `You win the game! ${playerScore} to ${compScore}`;
-  }
-  if (playerScore < compScore) {
-    return `You lost the game! ${playerScore} to ${compScore}`;
-  }
-  if (playerScore === compScore) {
-    return `You tied the game! ${playerScore} to ${compScore}`;
-  }
+  const gameResult = getGameResult(playerScore, compScore);
+  return `You ${gameResult}! ${playerScore} to ${compScore}.`;
 }
