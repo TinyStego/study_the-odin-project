@@ -52,8 +52,6 @@ function getGameResult(playerScore, compScore) {
   }
 }
 
-// REMINDER:
-//     refactor this function, possibly split into multiple functions
 function game() {
   const rounds = 5;
 
