@@ -1,13 +1,10 @@
 const removeFromArray = function(arr) {
+    const items = Array.from(arguments).slice(1);
     let newArr = [];
-    arrLoop:
     for (let i = 0; i < arr.length; ++i) {
-        for (let j = 1; j < arguments.length; ++j) {
-            if (arr[i] === arguments[j]) {
-                continue arrLoop;
-            }
+        if (!items.includes(arr[i])) {
+            newArr.push(arr[i]);
         }
-        newArr.push(arr[i]);
     }
     return newArr;
 };
