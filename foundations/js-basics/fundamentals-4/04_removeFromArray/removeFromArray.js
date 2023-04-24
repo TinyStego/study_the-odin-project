@@ -1,5 +1,4 @@
-const removeFromArray = function(arr) {
-    const items = Array.from(arguments).slice(1);
+const removeFromArray = function(arr, ...items) {
     let newArr = [];
     for (let i = 0; i < arr.length; ++i) {
         if (!items.includes(arr[i])) {
