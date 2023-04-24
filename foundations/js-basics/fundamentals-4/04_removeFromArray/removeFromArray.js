@@ -1,16 +1,13 @@
 const removeFromArray = function(arr) {
     let newArr = [];
+    arrLoop:
     for (let i = 0; i < arr.length; ++i) {
-        let isFound = false;
         for (let j = 1; j < arguments.length; ++j) {
             if (arr[i] === arguments[j]) {
-                isFound = true;
-                break;
+                continue arrLoop;
             }
         }
-        if (!isFound) {
-            newArr.push(arr[i]);
-        }
+        newArr.push(arr[i]);
     }
     return newArr;
 };
