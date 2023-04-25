@@ -12,7 +12,9 @@ const drumKeys = {
 
 window.addEventListener("keypress", e => {
     if (e.key in drumKeys) {
-        let sound = new Audio(`sounds/${drumKeys[e.key]}.wav`);
+        const sound = new Audio(`sounds/${drumKeys[e.key]}.wav`);
+        const key = document.querySelector(`div[data-key=${e.key}]`);
         sound.play();
+        key.classList.add("playing");
     } 
 })
