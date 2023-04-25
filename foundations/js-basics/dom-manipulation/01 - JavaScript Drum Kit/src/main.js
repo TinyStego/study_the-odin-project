@@ -11,14 +11,18 @@ const drumKeys = {
     l: "tink"
 }
 
-window.addEventListener("keypress", e => {
+function playSound(e) {
     if (e.key in drumKeys) {
         const sound = new Audio(`sounds/${drumKeys[e.key]}.wav`);
-        const key = document.querySelector(`div[data-key=${e.key}]`);
         sound.play();
-        key.classList.add("playing");
+        playAnimation(e.key);
     } 
-})
+}
+
+function playAnimation(keyPressed) {
+    const key = document.querySelector(`div[data-key=${keyPressed}]`);
+    key.classList.add("playing");
+}
 
 function removeClass(e) {
     if (e.propertyName === "transform") {
@@ -26,4 +30,5 @@ function removeClass(e) {
     }
 }
 
+window.addEventListener("keypress", playSound)
 drumKeyElements.forEach(key => key.addEventListener("transitionend", removeClass));
