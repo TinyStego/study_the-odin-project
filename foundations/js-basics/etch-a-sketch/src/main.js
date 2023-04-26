@@ -1,4 +1,12 @@
 const container = document.querySelector(".container");
+let isMouseDown = false;
+
+document.body.onmousedown = () => {
+    isMouseDown = true;
+}
+document.body.onmouseup = () => {
+    isMouseDown = false;
+}
 
 function createGrid() {
     const pixels = document.querySelectorAll(".pixel");
@@ -33,9 +41,12 @@ function createPixels(pixelsPerRow) {
     }
     const pixels = document.querySelectorAll(".pixel");
     pixels.forEach(pixel => pixel.addEventListener("mouseover", () => {
-        pixel.style.backgroundColor = `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`;
+        if (isMouseDown) {
+            pixel.style.backgroundColor = `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`;
+        }
     }))
 }
+
 
 function clearGrid(pixels) {
     pixels.forEach(pixel => container.removeChild(pixel));
