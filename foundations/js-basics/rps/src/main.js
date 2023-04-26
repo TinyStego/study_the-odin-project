@@ -42,20 +42,7 @@ function playRound(playerChoice, compChoice) {
     }
 }
 
-function outputResult(result) {
-    results.textContent = result;
-}
-
-buttons.forEach(button => button.addEventListener("click", () => { 
-    let result = playRound(button.textContent, getRandComputerChoice());    
-    if (isGameOver) {
-        return;
-    }
-    if (result.includes("beats")) {
-        playerScore++;
-    } else if (result.includes("loses")) {
-        compScore++;
-    }
+function determineWinner(result) {
     if (playerScore === 5) {
         outputResult(`You won the game!    Player: ${playerScore} | Computer ${compScore}`);
         isGameOver = true;
@@ -66,4 +53,25 @@ buttons.forEach(button => button.addEventListener("click", () => {
         result += `Player: ${playerScore} | Computer ${compScore}`;
         outputResult(result);
     }
+}
+
+function outputResult(result) {
+    results.textContent = result;
+}
+
+function addPoints(result) {
+    if (result.includes("beats")) {
+        playerScore++;
+    } else if (result.includes("loses")) {
+        compScore++;
+    }
+}
+
+buttons.forEach(button => button.addEventListener("click", () => { 
+    let result = playRound(button.textContent, getRandComputerChoice());    
+    if (isGameOver) {
+        return;
+    }
+    addPoints(result);
+    determineWinner(result);
 })); 
