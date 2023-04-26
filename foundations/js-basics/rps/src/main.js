@@ -16,17 +16,19 @@ scissorsButton.textContent = "Scissors";
 
 body.append(rockButton, paperButton, scissorsButton, results);
 
+const buttons = document.querySelectorAll("button");
+
 function getRandComputerChoice() {
     const compChoice = Math.floor(Math.random() * 3);
     return CHOICES[compChoice];
 }
 
+buttons.forEach(button => button.addEventListener("click", () => {
+    let result = playRound(button.textContent, getRandComputerChoice());    
+    outputResult(result);
+})); 
+
 function getPlayerChoice() {
-    let playerChoice = prompt("Choose: Rock, Paper, Scissors");
-    while (!CHOICES.includes(playerChoice.toLowerCase())) {
-        playerChoice = prompt(`${playerChoice} is invalid.\nChoose: Rock, Paper, Scissors`);
-    }
-    return playerChoice;
 }
 
 function playRound(playerChoice, compChoice) {
