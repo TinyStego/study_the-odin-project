@@ -46,7 +46,8 @@ function outputResult(result) {
     results.textContent = result;
 }
 
-buttons.forEach(button => button.addEventListener("click", () => { let result = playRound(button.textContent, getRandComputerChoice());    
+buttons.forEach(button => button.addEventListener("click", () => { 
+    let result = playRound(button.textContent, getRandComputerChoice());    
     if (isGameOver) {
         return;
     }
