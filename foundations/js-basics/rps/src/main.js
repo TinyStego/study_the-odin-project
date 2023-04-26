@@ -52,26 +52,3 @@ function getGameResult(playerScore, compScore) {
   }
 }
 
-function game() {
-  const rounds = 5;
-
-  let playerScore = 0;
-  let compScore = 0;
-
-  for (let i = 0; i < rounds; ++i){
-    let playerChoice = getPlayerChoice();
-    const compChoice = getRandComputerChoice(); // determine this score later so player
-                                                // can't view it in the debugger
-    const result = playRound(playerChoice, compChoice);
-    if (result.includes("Win")) {
-      ++playerScore;
-    }
-    if (result.includes("Lose")) {
-      ++compScore;
-    }
-    outputResult(result);
-  } 
-
-  const gameResult = getGameResult(playerScore, compScore);
-  return `You ${gameResult}! ${playerScore} to ${compScore}.`;
-}
