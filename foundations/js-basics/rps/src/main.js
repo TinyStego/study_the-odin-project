@@ -13,54 +13,56 @@ const body = document.querySelector("body");
 rockButton.textContent = "Rock";
 paperButton.textContent = "Paper";
 scissorsButton.textContent = "Scissors";
-
 body.append(rockButton, paperButton, scissorsButton, results);
 
 const buttons = document.querySelectorAll("button");
+
+let playerScore = 0;
+let compScore = 0;
+let isGameOver = false;
 
 function getRandComputerChoice() {
     const compChoice = Math.floor(Math.random() * 3);
     return CHOICES[compChoice];
 }
 
-buttons.forEach(button => button.addEventListener("click", () => {
-    let result = playRound(button.textContent, getRandComputerChoice());    
-    outputResult(result);
-})); 
-
-function getPlayerChoice() {
-}
-
 function playRound(playerChoice, compChoice) {
     if (playerChoice.toLowerCase() === compChoice) {
         return `It's a tie! You chose ${playerChoice} and the computer chose ${compChoice}.`;
     }
-
     for (const key in WINLOSS) {
         if (playerChoice.toLowerCase() === key &&
             compChoice === WINLOSS[key]) {
-            return `You Win! ${playerChoice} beats ${compChoice}.`;
+            return `${playerChoice} beats ${compChoice}.`;
         }
         if (compChoice === key &&
             playerChoice.toLowerCase() === WINLOSS[key]) {
-            return `You Lose! ${playerChoice} loses to ${compChoice}.`;
+            return `${playerChoice} loses to ${compChoice}.`;
         }
     }
-
 }
 
 function outputResult(result) {
     results.textContent = result;
 }
 
-function getGameResult(playerScore, compScore) {
-    if (playerScore > compScore) {
-        return "won";
+buttons.forEach(button => button.addEventListener("click", () => { let result = playRound(button.textContent, getRandComputerChoice());    
+    if (isGameOver) {
+        return;
     }
-    if (playerScore < compScore) {
-        return "lost";
+    if (result.includes("beats")) {
+        playerScore++;
+    } else if (result.includes("loses")) {
+        compScore++;
     }
-    if (playerScore === compScore) {
-        return "tied";
+    if (playerScore === 5) {
+        outputResult(`You won the game!    Player: ${playerScore} | Computer ${compScore}`);
+        isGameOver = true;
+    } else if (compScore === 5) {
+        outputResult(`You lost the game.    Player: ${playerScore} | Computer ${compScore}`);
+        isGameOver = true;
+    } else {
+        result += `Player: ${playerScore} | Computer ${compScore}`;
+        outputResult(result);
     }
-}
+})); 
