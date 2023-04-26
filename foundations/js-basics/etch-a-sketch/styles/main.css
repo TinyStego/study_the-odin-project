@@ -1,4 +1,4 @@
-* {
+*, .pixel {
     box-sizing: border-box;
 }
 
@@ -15,14 +15,16 @@ body {
 
 .container {
     display: flex;
+    box-sizing: content-box;
     flex-wrap: wrap;
+    width: 960px;
+    height: 960px;
+    border: 2px solid black;
 }
 
 .pixel {
     display: inline-block;
     margin: 0;
-    height: 50px;
-    width: 50px;
-    border: 1px solid black;
+    border: 1px solid rgba(150, 150, 150, 0.3);
     vertical-align: top;
 }
