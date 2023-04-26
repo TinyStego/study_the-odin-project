@@ -1,3 +1,7 @@
+*, *::after, *::before {
+    user-select: none;
+}
+
 *, .pixel {
     box-sizing: border-box;
 }
