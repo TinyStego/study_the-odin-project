@@ -14,7 +14,11 @@ for (let i = 0; i < PIXEL_PER_ROW; ++i) {
     }
 }
 
+function getRandomRGB() {
+    return Math.floor(Math.random() * 256);
+}
+
 const pixels = document.querySelectorAll(".pixel");
 pixels.forEach(pixel => pixel.addEventListener("mouseover", () => {
-    pixel.style.backgroundColor = "blue";
+    pixel.style.backgroundColor = `rgb(${getRandomRGB()}, ${getRandomRGB()}, ${getRandomRGB()})`;
 }))
