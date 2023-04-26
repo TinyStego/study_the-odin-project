@@ -3,6 +3,7 @@ const SIZE = 16;
 
 for (let i = 0; i < SIZE; ++i) {
     const row = document.createElement("div");
+    row.classList.add("row");
     for (let j = 0; j < SIZE; ++j) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
