@@ -13,3 +13,8 @@ for (let i = 0; i < PIXEL_PER_ROW; ++i) {
         container.appendChild(pixel);
     }
 }
+
+const pixels = document.querySelectorAll(".pixel");
+pixels.forEach(pixel => pixel.addEventListener("mouseover", () => {
+    pixel.style.backgroundColor = "blue";
+}))
