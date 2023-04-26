@@ -1,13 +1,15 @@
 const container = document.querySelector(".container");
-const SIZE = 16;
+const PIXEL_PER_ROW = 16;
+const PIXEL_SIZE = 50;
+const Grid_Size = PIXEL_PER_ROW * PIXEL_SIZE;
 
-for (let i = 0; i < SIZE; ++i) {
-    const row = document.createElement("div");
-    row.classList.add("row");
-    for (let j = 0; j < SIZE; ++j) {
+container.style.width = `${Grid_Size}px`;
+container.style.height = `${Grid_Size}px`;
+
+for (let i = 0; i < PIXEL_PER_ROW; ++i) {
+    for (let j = 0; j < PIXEL_PER_ROW; ++j) {
         const pixel = document.createElement("div");
         pixel.classList.add("pixel");
-        row.appendChild(pixel);
+        container.appendChild(pixel);
     }
-    container.appendChild(row);
 }
