@@ -9,6 +9,7 @@ const buttons = document.querySelectorAll("button");
 let exp = [];
 let index = 0;
 let pressedEqual = false;
+let isLastDisplayCalc = false;
 
 buttons.forEach(button => button.addEventListener("click", () => {
     if (button.textContent in operations) {
@@ -19,6 +20,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
         calculate();
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
         addToDisplay(button.textContent);
+        isLastDisplayCalc = false;
     }
 }));
 
@@ -50,15 +52,13 @@ function operate(op, num1, num2) {
 }
 
 function addToDisplay(item) {
-    if (item in operations) {
-        return;
-    }
-    display.value = item;
+    display.value = isLastDisplayCalc ? item : display.value + item;
 }
 
 function operator(op) {
     const num = Number(display.value);
     const prev = index - 1;
+    isLastDisplayCalc = true;
     exp[index] = [0,0,0];
     if (index === 0) {
         exp[index][0] = num;
@@ -77,6 +77,7 @@ function operator(op) {
 function calculate() {
     const num = Number(display.value);
     const lastExp = index - 1;
+    isLastDisplayCalc = true;
     if(!pressedEqual) {
         exp[lastExp][2] = num;
         operate(exp[lastExp][1], exp[lastExp][0], exp[lastExp][2]);
@@ -85,9 +86,10 @@ function calculate() {
 }
 
 function clearDisplay() {
-    addToDisplay("");
+    isLastDisplayCalc = true;
     exp = [];
     index = 0;
+    addToDisplay("");
 }
 
 function del() {
