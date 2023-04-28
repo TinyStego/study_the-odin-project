@@ -1,3 +1,5 @@
+const display = document.querySelector("#display");
+const buttons = document.querySelectorAll("button");
 let num1 = 0;
 let num2 = 0;
 let op   = "";
@@ -26,4 +28,8 @@ function operate(op, num1, num2) {
         "/": divide
     }
     return operations[op](num1, num2);
+}
+
+function addToDisplay(item) {
+    display.value += item;
 }
