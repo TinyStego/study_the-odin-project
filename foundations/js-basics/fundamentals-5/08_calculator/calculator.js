@@ -18,8 +18,12 @@ const multiply = function(numbers) {
     }, 1);	
 };
 
-const power = function() {
-	
+const power = function(num, pow) {
+    let total = 1;
+    for (let i = 0; i < pow; ++i) {
+        total *= num;
+    }
+    return total;
 };
 
 const factorial = function() {
