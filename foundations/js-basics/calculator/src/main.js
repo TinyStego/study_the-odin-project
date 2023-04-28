@@ -27,9 +27,13 @@ function divide(num1, num2) {
 }
 
 function operate(op, num1, num2) {
-    result = Math.round(operations[op](num1, num2) * 100) / 100;
+    if (op === "/" && num2 === 0) {
+        addToDisplay("Error: Division by 0");
+        return;
+    }
+    let result = operations[op](num1, num2);
+    result = Math.round(result * 100) / 100;
     addToDisplay(result);
-    console.table(exp);
     return result;
 }
 
