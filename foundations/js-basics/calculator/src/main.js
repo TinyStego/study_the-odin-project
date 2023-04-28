@@ -77,3 +77,9 @@ function clearDisplay() {
     exp = [];
     index = 0;
 }
+
+function del() {
+    if (display.value.length >= 1) {
+        display.value = display.value.substring(0, display.value.length - 1);
+    }
+}
