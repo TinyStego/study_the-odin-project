@@ -6,9 +6,9 @@ const operations = {
 }
 const display = document.querySelector("#display");
 const buttons = document.querySelectorAll("button");
-let exp = [];
-let index = 0;
-let pressedEqual = false;
+let expressions = [];
+let currentExpIndex = 0;
+let equalWasPressed = false;
 let isLastDisplayCalc = false;
 
 buttons.forEach(button => button.addEventListener("click", () => {
@@ -59,38 +59,38 @@ function addToDisplay(item) {
 
 function operator(op) {
     const num = Number(display.value);
-    const prev = index - 1;
+    const prev = currentExpIndex - 1;
     isLastDisplayCalc = true;
-    exp[index] = [0,0,0];
-    if (index === 0) {
-        exp[index][0] = num;
-        exp[index][1] = op;
-    } else if (index > 0) {
-        if (!pressedEqual) {
-            exp[prev][2] = num;
+    expressions[currentExpIndex] = [0,0,0];
+    if (currentExpIndex === 0) {
+        expressions[currentExpIndex][0] = num;
+        expressions[currentExpIndex][1] = op;
+    } else if (currentExpIndex > 0) {
+        if (!equalWasPressed) {
+            expressions[prev][2] = num;
         }
-        exp[index][0] = operate(exp[prev][1], exp[prev][0], exp[prev][2]);
-        exp[index][1] = op;
+        expressions[currentExpIndex][0] = operate(expressions[prev][1], expressions[prev][0], expressions[prev][2]);
+        expressions[currentExpIndex][1] = op;
     }
-    index++;
-    pressedEqual = false;
+    currentExpIndex++;
+    equalWasPressed = false;
 }
 
 function calculate() {
     const num = Number(display.value);
-    const lastExp = index - 1;
+    const lastExp = currentExpIndex - 1;
     isLastDisplayCalc = true;
-    if(!pressedEqual) {
-        exp[lastExp][2] = num;
-        operate(exp[lastExp][1], exp[lastExp][0], exp[lastExp][2]);
-        pressedEqual = true;
+    if(!equalWasPressed) {
+        expressions[lastExp][2] = num;
+        operate(expressions[lastExp][1], expressions[lastExp][0], expressions[lastExp][2]);
+        equalWasPressed = true;
     }
 }
 
 function clearDisplay() {
     isLastDisplayCalc = true;
-    exp = [];
-    index = 0;
+    expressions = [];
+    currentExpIndex = 0;
     addToDisplay("");
 }
 
