@@ -12,8 +12,8 @@ const sum = function(numbers) {
     }, 0);	
 };
 
-const multiply = function() {
-
+const multiply = function(x, y) {
+    return x * y;
 };
 
 const power = function() {
