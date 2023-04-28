@@ -10,6 +10,18 @@ let exp = [];
 let index = 0;
 let pressedEqual = false;
 
+buttons.forEach(button => button.addEventListener("click", () => {
+    if (button.textContent in operations) {
+        operator(button.textContent);
+    } else if (button.textContent === "C") {
+        clearDisplay();
+    } else if (button.textContent === "=") {
+        calculate();
+    } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
+        addToDisplay(button.textContent);
+    }
+}));
+
 function add(num1, num2) {
     return num1 + num2;
 }
