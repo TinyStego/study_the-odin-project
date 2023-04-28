@@ -18,6 +18,8 @@ buttons.forEach(button => button.addEventListener("click", () => {
         clearDisplay();
     } else if (button.textContent === "=") {
         calculate();
+    } else if (button.textContent === "DEL") {
+        del();
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
         addToDisplay(button.textContent);
         isLastDisplayCalc = false;
