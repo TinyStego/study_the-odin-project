@@ -23,6 +23,10 @@ buttons.forEach(button => button.addEventListener("click", () => {
         del();
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
         addToDisplay(button.textContent);
+        if (equalWasPressed) {
+            resetCalc();
+            equalWasPressed = false;
+        }
         isLastDisplayCalc = false;
         operationWasPressed = false;
     }
@@ -63,8 +67,8 @@ function operator(op) {
     const num = Number(display.value);
     const prev = currentExpIndex - 1;
     isLastDisplayCalc = true;
+    expressions[currentExpIndex] = [0,0,0];
     if (currentExpIndex === 0) {
-        expressions[currentExpIndex] = [0,0,undefined];
         expressions[currentExpIndex][0] = num;
         expressions[currentExpIndex][1] = op;
     } else if (operationWasPressed) {
@@ -74,7 +78,6 @@ function operator(op) {
         if (!equalWasPressed) {
             expressions[prev][2] = num;
         }
-        expressions[currentExpIndex] = [0,0,undefined];
         expressions[currentExpIndex][0] = operate(expressions[prev][1], expressions[prev][0], expressions[prev][2]);
         expressions[currentExpIndex][1] = op;
     }
@@ -96,9 +99,13 @@ function calculate() {
 
 function clearDisplay() {
     isLastDisplayCalc = true;
+    resetCalc();
+    addToDisplay("");
+}
+
+function resetCalc() {
     expressions = [];
     currentExpIndex = 0;
-    addToDisplay("");
 }
 
 function del() {
