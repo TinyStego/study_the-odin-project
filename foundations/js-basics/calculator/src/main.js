@@ -27,7 +27,7 @@ function divide(num1, num2) {
 }
 
 function operate(op, num1, num2) {
-    result = Math.round(operations[op](num1, num2));
+    result = Math.round(operations[op](num1, num2) * 100) / 100;
     addToDisplay(result);
     console.table(exp);
     return result;
