@@ -6,7 +6,7 @@ const operations = {
 }
 const display = document.querySelector("#display");
 const buttons = document.querySelectorAll("button");
-const exp = [];
+let exp = [];
 let index = 0;
 
 function add(num1, num2) {
@@ -54,10 +54,10 @@ function operator(op) {
 }
 
 function calculate() {
-    let expression = display.value;
-    if (expression[expression.length - 1] in operations) {
-        return;
-    }
+}
 
-    display.value = test;
+function clearDisplay() {
+    addToDisplay("");
+    exp = [];
+    index = 0;
 }
