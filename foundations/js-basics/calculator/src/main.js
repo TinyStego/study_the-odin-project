@@ -10,6 +10,7 @@ let expressions = [];
 let currentExpIndex = 0;
 let equalWasPressed = false;
 let isLastDisplayCalc = false;
+let operationWasPressed = false;
 
 buttons.forEach(button => button.addEventListener("click", () => {
     if (button.textContent in operations) {
@@ -23,6 +24,7 @@ buttons.forEach(button => button.addEventListener("click", () => {
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
         addToDisplay(button.textContent);
         isLastDisplayCalc = false;
+        operationWasPressed = false;
     }
 }));
 
@@ -61,19 +63,24 @@ function operator(op) {
     const num = Number(display.value);
     const prev = currentExpIndex - 1;
     isLastDisplayCalc = true;
-    expressions[currentExpIndex] = [0,0,0];
     if (currentExpIndex === 0) {
+        expressions[currentExpIndex] = [0,0,undefined];
         expressions[currentExpIndex][0] = num;
         expressions[currentExpIndex][1] = op;
+    } else if (operationWasPressed) {
+        expressions[prev][1] = op;
+        return;
     } else if (currentExpIndex > 0) {
         if (!equalWasPressed) {
             expressions[prev][2] = num;
         }
+        expressions[currentExpIndex] = [0,0,undefined];
         expressions[currentExpIndex][0] = operate(expressions[prev][1], expressions[prev][0], expressions[prev][2]);
         expressions[currentExpIndex][1] = op;
     }
     currentExpIndex++;
     equalWasPressed = false;
+    operationWasPressed = true;
 }
 
 function calculate() {
