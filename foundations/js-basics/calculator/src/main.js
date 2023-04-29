@@ -7,14 +7,13 @@ const operations = {
 const display = document.querySelector("#display");
 const buttons = document.querySelectorAll("button");
 let expressions = [];
-let currentExpIndex = 0;
 let equalWasPressed = false;
 let isLastDisplayCalc = false;
 let operationWasPressed = false;
 
 buttons.forEach(button => button.addEventListener("click", () => {
     if (button.textContent in operations) {
-        operator(button.textContent);
+        newOp(button.textContent);
     } else if (button.textContent === "C") {
         clearDisplay();
     } else if (button.textContent === "=") {
@@ -23,9 +22,9 @@ buttons.forEach(button => button.addEventListener("click", () => {
         del();
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
         addToDisplay(button.textContent);
-        if (equalWasPressed) {
-            resetCalc();
-            equalWasPressed = false;
+        if (equalWasPressed) {          // REMINDER: figure out a way to run this code only after the equals was pressed
+            equalWasPressed = false;    //           currently it does run when after was pressed, but it also runs after
+            resetCalc();                //           pressing an operator that was pressed after equals
         }
         isLastDisplayCalc = false;
         operationWasPressed = false;
@@ -63,38 +62,32 @@ function addToDisplay(item) {
     display.value = isLastDisplayCalc ? item : display.value + item;
 }
 
-function operator(op) {
+function newOp(op) {
     const num = Number(display.value);
-    const prev = currentExpIndex - 1;
     isLastDisplayCalc = true;
-    expressions[currentExpIndex] = [0,0,0];
-    if (currentExpIndex === 0) {
-        expressions[currentExpIndex][0] = num;
-        expressions[currentExpIndex][1] = op;
-    } else if (operationWasPressed) {
-        expressions[prev][1] = op;
+    if (operationWasPressed) {
+        expressions[1] = op;
         return;
-    } else if (currentExpIndex > 0) {
-        if (!equalWasPressed) {
-            expressions[prev][2] = num;
-        }
-        expressions[currentExpIndex][0] = operate(expressions[prev][1], expressions[prev][0], expressions[prev][2]);
-        expressions[currentExpIndex][1] = op;
     }
-    currentExpIndex++;
+    if (expressions.length === 0) {
+        expressions[0] = num;
+        expressions[1] = op;
+    } else if (expressions.length === 0 && !equalWasPressed) {
+        expressions[0] = operate(expressions[1], expressions[0], num);
+        expressions[1] = op;
+    }
     equalWasPressed = false;
     operationWasPressed = true;
 }
 
 function calculate() {
     const num = Number(display.value);
-    const lastExp = currentExpIndex - 1;
     isLastDisplayCalc = true;
     if(!equalWasPressed) {
-        expressions[lastExp][2] = num;
-        operate(expressions[lastExp][1], expressions[lastExp][0], expressions[lastExp][2]);
+        expressions[0] = operate(expressions[1], expressions[0], num); 
         equalWasPressed = true;
     }
+    operationWasPressed = true;
 }
 
 function clearDisplay() {
@@ -105,7 +98,6 @@ function clearDisplay() {
 
 function resetCalc() {
     expressions = [];
-    currentExpIndex = 0;
 }
 
 function del() {
