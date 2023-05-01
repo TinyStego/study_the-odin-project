@@ -7,9 +7,9 @@ const operations = {
 const display = document.querySelector("#display");
 const buttons = document.querySelectorAll("button");
 let expressions = [];
-let equalWasPressed = false;
+let wasEqualPressed = false;
 let isLastDisplayCalc = false;
-let operationWasPressed = false;
+let wasOpPressed = false;
 
 buttons.forEach(button => button.addEventListener("click", () => {
     if (button.textContent in operations) {
@@ -22,12 +22,12 @@ buttons.forEach(button => button.addEventListener("click", () => {
         del();
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
         addToDisplay(button.textContent);
-        if (equalWasPressed) { 
+        if (wasEqualPressed) { 
             resetCalc();
-            equalWasPressed = false;
+            wasEqualPressed = false;
         }
         isLastDisplayCalc = false;
-        operationWasPressed = false;
+        wasOpPressed = false;
     }
 }));
 
@@ -64,29 +64,29 @@ function addToDisplay(item) {
 
 function newOp(op) {
     const num = Number(display.value);
-    equalWasPressed = false;
+    wasEqualPressed = false;
     isLastDisplayCalc = true;
-    if (operationWasPressed) {
+    if (wasOpPressed) {
         expressions[1] = op;
         return;
     }
     if (expressions.length === 0) {
         expressions[0] = num;
         expressions[1] = op;
-    } else if (expressions.length === 2 && !equalWasPressed) {
+    } else if (expressions.length === 2 && !wasEqualPressed) {
         expressions[0] = operate(expressions[1], expressions[0], num);
         expressions[1] = op;
     }
-    operationWasPressed = true;
+    wasOpPressed = true;
 }
 
 function calculate() {
     const num = Number(display.value);
     isLastDisplayCalc = true;
-    operationWasPressed = true;
-    if(!equalWasPressed) {
+    wasOpPressed = true;
+    if(!wasEqualPressed) {
         expressions[0] = operate(expressions[1], expressions[0], num); 
-        equalWasPressed = true;
+        wasEqualPressed = true;
     }
 }
 
