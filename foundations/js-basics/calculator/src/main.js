@@ -21,13 +21,17 @@ buttons.forEach(button => button.addEventListener("click", () => {
     } else if (button.textContent === "DEL") {
         del();
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
-        addToDisplay(button.textContent);
-        if (equalWasPressed) { 
-            resetCalc();
-            equalWasPressed = false;
+        if (((display.value.substr(0,2) === "0." || display.value[0] !== "0" || 
+            display.value === "") && button.textContent === "0") ||
+            button.textContent !== "0") {
+            addToDisplay(button.textContent);
+            if (equalWasPressed) { 
+                resetCalc();
+                equalWasPressed = false;
+            }
+            isLastDisplayCalc = false;
+            operationWasPressed = false;
         }
-        isLastDisplayCalc = false;
-        operationWasPressed = false;
     }
 }));
 
