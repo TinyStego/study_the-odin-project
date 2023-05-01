@@ -36,13 +36,17 @@ buttons.forEach(button => button.addEventListener("click", () => {
             isLastDisplayCalc = false;
         }
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
-        addToDisplay(button.textContent);
-        if (wasEqualPressed) { 
-            resetCalc();
-            wasEqualPressed = false;
+        if (((display.value.substr(0,2) === "0." || display.value[0] !== "0" || 
+            display.value === "") && button.textContent === "0") ||
+            button.textContent !== "0") {
+            addToDisplay(button.textContent);
+            if (wasEqualPressed) { 
+                resetCalc();
+                wasEqualPressed = false;
+            }
+            isLastDisplayCalc = false;
+            operationWasPressed = false;
         }
-        isLastDisplayCalc = false;
-        wasOpPressed = false;
     }
 }));
 
@@ -74,7 +78,11 @@ function operate(op, num1, num2) {
 }
 
 function addToDisplay(item) {
-    display.value = isLastDisplayCalc ? item : display.value + item;
+    if (isLastDisplayCalc || (display.value.length === 1 && display.value[0] === "0")) {
+        display.value = item;
+    } else if (!isLastDisplayCalc) {
+        display.value += item;
+    }
 }
 
 function newOp(op) {
