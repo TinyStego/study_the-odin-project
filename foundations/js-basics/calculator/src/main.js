@@ -22,9 +22,9 @@ buttons.forEach(button => button.addEventListener("click", () => {
         del();
     } else if (Number(button.textContent) in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]) {
         addToDisplay(button.textContent);
-        if (equalWasPressed) {          // REMINDER: figure out a way to run this code only after the equals was pressed
-            equalWasPressed = false;    //           currently it does run when after was pressed, but it also runs after
-            resetCalc();                //           pressing an operator that was pressed after equals
+        if (equalWasPressed) { 
+            resetCalc();
+            equalWasPressed = false;
         }
         isLastDisplayCalc = false;
         operationWasPressed = false;
@@ -64,6 +64,7 @@ function addToDisplay(item) {
 
 function newOp(op) {
     const num = Number(display.value);
+    equalWasPressed = false;
     isLastDisplayCalc = true;
     if (operationWasPressed) {
         expressions[1] = op;
@@ -72,22 +73,21 @@ function newOp(op) {
     if (expressions.length === 0) {
         expressions[0] = num;
         expressions[1] = op;
-    } else if (expressions.length === 0 && !equalWasPressed) {
+    } else if (expressions.length === 2 && !equalWasPressed) {
         expressions[0] = operate(expressions[1], expressions[0], num);
         expressions[1] = op;
     }
-    equalWasPressed = false;
     operationWasPressed = true;
 }
 
 function calculate() {
     const num = Number(display.value);
     isLastDisplayCalc = true;
+    operationWasPressed = true;
     if(!equalWasPressed) {
         expressions[0] = operate(expressions[1], expressions[0], num); 
         equalWasPressed = true;
     }
-    operationWasPressed = true;
 }
 
 function clearDisplay() {
