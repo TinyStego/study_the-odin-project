@@ -63,7 +63,11 @@ function operate(op, num1, num2) {
 }
 
 function addToDisplay(item) {
-    display.value = isLastDisplayCalc ? item : display.value + item;
+    if (isLastDisplayCalc || (display.value.length === 1 && display.value[0] === "0")) {
+        display.value = item;
+    } else if (!isLastDisplayCalc) {
+        display.value += item;
+    }
 }
 
 function newOp(op) {
